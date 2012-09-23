@@ -50,7 +50,7 @@ cameraweb = {
 										data: { configkey: config },
 										dataType: 'text',
 										success: function (data) {
-											alert(data);
+											$('#dialog').dialog(data);
 										},
 										type: 'GET'
 									});
