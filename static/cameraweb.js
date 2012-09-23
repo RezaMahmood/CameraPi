@@ -49,8 +49,8 @@ cameraweb = {
 										contentType: 'application/json',
 										data: { configkey: config },
 										dataType: 'text',
-										success: function (data) {
-											alert(data);
+										success: function (data) {											
+											$('#dialog').text(data).dialog('open');
 										},
 										type: 'GET'
 									});

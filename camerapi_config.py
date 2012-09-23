@@ -10,5 +10,6 @@ config = {
 	'bottle_port' : 80,
 	'bottle_debug': True,
 	'bottle_reloader': True,
+	'bottle_imagepath': '/home/pi/python/projects/web/cameraweb/static/images',
 	'bottle_ip' : '192.168.1.100'
 }

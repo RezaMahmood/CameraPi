@@ -1,6 +1,8 @@
 <html lang="en">
 	<head>
+		<link type="text/css" href="jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
         <script type="text/javascript" src="cameraweb.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		    $(function () {
@@ -10,7 +12,9 @@
 		        $('#captureimage').click(function () { cameraweb.captureImage(); });
 		        $('#resetcameraconnection').click(function () { cameraweb.resetCameraConnection(); });
 		        $('#listabilities').click(function () { cameraweb.listAbilities(); });
-				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});				
+				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});		
+
+				$('#dialog').dialog('option', 'autoOpen', false);
 		    });
 		</script>
 	</head>
@@ -26,5 +30,8 @@
 			</ul>
 		</div>
 		<div id="content" />
+		<div id="dialog" title="Config setting">
+			
+		</div>
 	</body>
 </html>	

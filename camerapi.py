@@ -13,8 +13,12 @@ def get_config():
 	return gphoto.execute(['--get-config', querystring])		
 	
 @app.route('/static/<filepath:path>')
-def server_static(filepath):
-	return static_file(filepath, root=camerapi_config.config['bottle_staticfilepath'], mimetype="text/html")
+def serve_static(filepath):
+	return static_file(filepath, root=camerapi_config.config['bottle_staticfilepath'])
+	
+@app.route('/static/images/<filepath:path>')
+def serve_images(filepath):
+	return static_file(filepath, root=camerapi_config.config['bottle_imagepath'])
 
 @app.route('/listsummary')
 def summary():
