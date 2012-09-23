@@ -1,0 +1,30 @@
+<html lang="en">
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script type="text/javascript" src="cameraweb.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		    $(function () {
+		        $('#content').empty();
+		        $('#listconfig').click(function () { cameraweb.listConfigs(); });
+		        $('#listsummary').click(function () { cameraweb.listSummary(); });
+		        $('#captureimage').click(function () { cameraweb.captureImage(); });
+		        $('#resetcameraconnection').click(function () { cameraweb.resetCameraConnection(); });
+		        $('#listabilities').click(function () { cameraweb.listAbilities(); });
+				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});				
+		    });
+		</script>
+	</head>
+	<body>
+		<div id="navigation">
+			<ul style="list-style: none;">
+				<li><button id="listconfig">List Configs</button></li>
+                <li><button id="listsummary">List Summary</button></li>
+                <li><button id="captureimage">Capture Photo</button></li>				
+                <li><button id="listabilities">List Abilities</button></li>
+				<li><button id="storageinfo">Storage Info</button></li>				
+                <li><button id="resetcameraconnection">Reset Camera Connection</button></li>
+			</ul>
+		</div>
+		<div id="content" />
+	</body>
+</html>	
