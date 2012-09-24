@@ -14,11 +14,11 @@ def get_config():
 	
 @app.route('/static/<filepath:path>')
 def serve_static(filepath):
-	return static_file(filepath, root=camerapi_config.config['bottle_staticfilepath'])
+	return static_file(filepath, root=camerapi_config.config['bottle_staticfilepath'], mimetype='auto')
 	
 @app.route('/static/images/<filepath:path>')
 def serve_images(filepath):
-	return static_file(filepath, root=camerapi_config.config['bottle_imagepath'])
+	return static_file(filepath, root=camerapi_config.config['bottle_imagepath'], mimetype='auto')
 
 @app.route('/listsummary')
 def summary():

@@ -12,9 +12,9 @@
 		        $('#captureimage').click(function () { cameraweb.captureImage(); });
 		        $('#resetcameraconnection').click(function () { cameraweb.resetCameraConnection(); });
 		        $('#listabilities').click(function () { cameraweb.listAbilities(); });
-				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});		
-
-				$('#dialog').dialog('option', 'autoOpen', false);
+				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});
+				$('#syncCamera').click(function(){ cameraweb.syncCamera();});			
+				
 		    });
 		</script>
 	</head>
@@ -27,11 +27,11 @@
                 <li><button id="listabilities">List Abilities</button></li>
 				<li><button id="storageinfo">Storage Info</button></li>				
                 <li><button id="resetcameraconnection">Reset Camera Connection</button></li>
+				<li><button id="syncCamera">Sync Camera</button</li>
 			</ul>
 		</div>
-		<div id="content" />
-		<div id="dialog" title="Config setting">
-			
-		</div>
+		
+		<div id="content"></div>
+		
 	</body>
 </html>	
