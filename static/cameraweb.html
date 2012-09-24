@@ -3,6 +3,7 @@
 		<link type="text/css" href="jquery-ui-1.8.23.custom.css" rel="Stylesheet" />	
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
         <script type="text/javascript" src="cameraweb.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		    $(function () {
@@ -19,7 +20,7 @@
 		</script>
 	</head>
 	<body>
-		<div id="navigation">
+		<nav>
 			<ul style="list-style: none;">
 				<li><button id="listconfig">List Configs</button></li>
                 <li><button id="listsummary">List Summary</button></li>
@@ -29,9 +30,12 @@
                 <li><button id="resetcameraconnection">Reset Camera Connection</button></li>
 				<li><button id="syncCamera">Sync Camera</button</li>
 			</ul>
+		</nav>
+		
+		<section id="content"></section>
+		
+		<div id="configSetting" style="display:none;">
+			
 		</div>
-		
-		<div id="content"></div>
-		
 	</body>
 </html>	

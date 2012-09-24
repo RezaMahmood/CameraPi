@@ -5,6 +5,7 @@ cameraweb = {
 	camerasummary: undefined,
 	cameraabilities: undefined,
 	storageinfo: undefined,
+	processing: function(){return false;},
 	getAllConfigs: function(callback){
 		$.get('/listconfig', function (data) {		
 				
@@ -51,14 +52,18 @@ cameraweb = {
 									var config = $(this).text();
 									
 									cameraweb.getConfig(config, function(data){
-										var $dialog = $('<div></div>').dialog({autoOpen:false, title:'Config'});
-										$dialog.html(data.replace(/[\n\r]/g, '<br/>')).dialog('open');
-										return false;
+										cameraweb.displaySetConfig(data);
 									});							
 
 								});
 		
 		
+	},
+	
+	displaySetConfig: function(data){
+		var $dialog = $('<div></div>').dialog({autoOpen:false, title:'Config', 'position': 'top'});
+		$dialog.html(data.replace(/[\n\r]/g, '<br/>')).dialog('open');
+		return false;
 	},
 	
 	getConfig: function(config, callback){
@@ -202,6 +207,7 @@ cameraweb = {
 	processSyncCamera: function(data){
 		var allrawconfigs = data.replace(/[\n\r]/g, ',');
 		var allconfigs = allrawconfigs.split(',');				
+		
 		
 		// iterate through each config setting
 		for(var i=0;i<allconfigs.length;i++)
