@@ -1,5 +1,49 @@
-body, html {	margin:0;
-				padding:0;
-				color:#000;
-				background:#a7a09a;
-			}
+/* Stylesheet modified from http://www.456bereastreet.com/lab/developing_with_web_standards/csslayout/2-col/ */
+
+body, html {	
+	margin:0;
+	padding:0;
+	color:#000;
+	background:#a7a09a;
+}
+
+#wrapper{
+	width: 750px;
+	margin:0 auto;
+	background:#99c;
+}
+
+header{
+	background:#ddd;
+}
+
+nav{
+	background:#c99;
+	float:left;
+	width:250px;
+}
+
+section{
+	background:#9c9;
+	float: right;
+	width: 500px;	
+}
+
+footer{
+	background:#cc9;
+	clear:both;
+}
+
+nav ul{
+	list-style:none;
+	padding:2px;
+}
+
+nav ul li{
+	padding:2px;
+	margin:2px;
+}
+
+.advanced-menu{
+	display:none;
+}

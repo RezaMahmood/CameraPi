@@ -1,11 +1,13 @@
-var cameraweb = {};
+var cameraPi = {};
 
-cameraweb = {
+cameraPi = {
 	debug: {},
 	allconfigs: undefined,
 	camerasummary: undefined,
 	cameraabilities: undefined,
 	storageinfo: undefined,
+	configKeyPrefix: function(){ return 'C|';},
+	shotKeyPrefix: function(){ return 'S|';},
 	processing: function(){return false;},
 	getAllConfigs: function(callback){
 		$.get('/listconfig', function (data) {		
@@ -19,7 +21,7 @@ cameraweb = {
 				}
 				else
 				{	
-					cameraweb.allconfigs = data; // cache this locally as it will never change
+					cameraPi.allconfigs = data; // cache this locally as it will never change
 					callback(data);								
 				}		
 				
@@ -30,12 +32,12 @@ cameraweb = {
 
         $('#content').empty();
 		
-		if(cameraweb.allconfigs){
-			cameraweb.processList(cameraweb.allconfigs, '/getconfig');
+		if(cameraPi.allconfigs){
+			cameraPi.processList(cameraPi.allconfigs, '/getconfig');
 		}
 		else{
-			cameraweb.getAllConfigs(function(data){
-				cameraweb.processList(data, '/getconfig');
+			cameraPi.getAllConfigs(function(data){
+				cameraPi.processList(data, '/getconfig');
 			});			
 		}
     },
@@ -46,7 +48,7 @@ cameraweb = {
 		
 		processedData.map(function(item){
 			// check if this key is in local storage
-			var storedConfigKey = item.replace(/\//g,'');
+			var storedConfigKey = cameraPi.configKeyPrefix + item.replace(/\//g,'');
 			var storedConfigValue = localStorage.getItem(item);
 			if(!storedConfigValue)
 			{				
@@ -60,8 +62,8 @@ cameraweb = {
 									var thisid = this.id
 									var config = $(this).text();
 									
-									cameraweb.getConfig(config, function(data){
-										cameraweb.displaySetConfig(data);
+									cameraPi.getConfig(config, function(data){
+										cameraPi.displaySetConfig(data);
 									});							
 
 								});
@@ -78,7 +80,7 @@ cameraweb = {
 	getConfig: function(config, callback){
 	
 		// check whether the config value is stored locally first		
-		var configValue = window.localStorage.getItem(config);
+		var configValue = window.localStorage.getItem(cameraPi.configKeyPrefix + config);
 		
 		if(configValue)
 		{
@@ -106,17 +108,17 @@ cameraweb = {
     listSummary: function () {
         $('#content').empty();		
 		
-		if(cameraweb.camerasummary)
+		if(cameraPi.camerasummary)
 		{
-			cameraweb.processData(cameraweb.camerasummary);			
+			cameraPi.processData(cameraPi.camerasummary);			
 		}
 		else
 		{			
 			$.get('/listsummary', function (data) {
 				if(data != "Camera not found"){
-					cameraweb.camerasummary = data; // cache this locally as it will never change
+					cameraPi.camerasummary = data; // cache this locally as it will never change
 				}
-				cameraweb.processData(data);
+				cameraPi.processData(data);
 			});
 		}
 		
@@ -137,27 +139,22 @@ cameraweb = {
 		});
     },
 
-    resetCameraConnection: function () {
-        $.get('/resetconnection', function (data) {
-            alert(data);
-        });
-    },
 
     listAbilities: function () {
         $('#content').empty();
 		
-		if(cameraweb.cameraabilities)
+		if(cameraPi.cameraabilities)
 		{
-			cameraweb.processData(cameraweb.cameraabilities);
+			cameraPi.processData(cameraPi.cameraabilities);
 		}
 		else
 		{		
 			$.get('/listabilities', function (data) {
 				if(data != "Camera not found")
 				{
-					cameraweb.cameraabilities = data; // cache this locally as it will never change
+					cameraPi.cameraabilities = data; // cache this locally as it will never change
 				}
-			   cameraweb.processData(data);
+			   cameraPi.processData(data);
 			});
 		}
     },
@@ -166,22 +163,7 @@ cameraweb = {
 		$('#content').html(data.replace(/[\n\r]/g, '<br/>'));
 	},
 	
-	getStorageInfo: function(){
-		$('#content').empty();
-		
-		if(cameraweb.storageinfo)
-		{
-			cameraweb.processData(cameraweb.storageinfo)
-		}
-		else
-		{
-		
-			$.get('/storageinfo', function(data){
-				cameraweb.storageinfo = data;
-				cameraweb.processData(data);
-			});
-		}
-	},
+	
 	
 	capturePreview: function(){
 		$('#content').empty();
@@ -197,35 +179,7 @@ cameraweb = {
 					}).attr('src', '/static/' + data);
 				}
 		});
-	},
-	
-	syncCamera: function(){
-		// Get all the config settings
-		if(!cameraweb.allconfigs)
-		{
-			cameraweb.getAllConfigs(function(data){
-				cameraweb.processSyncCamera(data);
-			});
-		}
-		else
-		{
-			cameraweb.processSyncCamera(cameraweb.allconfigs);
-		}
-	},
-	
-	processSyncCamera: function(data){
-		var allrawconfigs = data.replace(/[\n\r]/g, ',');
-		var allconfigs = allrawconfigs.split(',');				
-		
-		
-		// iterate through each config setting
-		for(var i=0;i<allconfigs.length;i++)
-		{						
-			var configKey = allconfigs[i];
-			cameraweb.getConfig(configKey, function(data, configKey){				
-				window.localStorage.setItem(configKey, data);				
-			});
-		}		
 	}
+	
 
 }

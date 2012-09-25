@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<link type="text/css" href="jquery-ui-1.8.23.custom.css" rel="Stylesheet" />
@@ -10,17 +11,20 @@
 		<script type="text/javascript" charset="utf-8">
 		    $(function () {
 		        $('#content').empty();
-		        $('#listconfig').click(function () { cameraweb.listConfigs(); });
-		        $('#listsummary').click(function () { cameraweb.listSummary(); });
-		        $('#captureimage').click(function () { cameraweb.captureImage(); });
-		        $('#resetcameraconnection').click(function () { cameraweb.resetCameraConnection(); });
-		        $('#listabilities').click(function () { cameraweb.listAbilities(); });
-				$('#storageinfo').click(function(){ cameraweb.getStorageInfo();});
-				$('#syncCamera').click(function(){ cameraweb.syncCamera();});	
-				$('#foo').click(function(){ cameraweb.debug.listStorage();});
-	
-			
+		        $('#listconfig').click(function () { cameraPi.listConfigs(); });
+		        $('#listsummary').click(function () { cameraPi.listSummary(); });		       		        
+		        $('#listabilities').click(function () { cameraPi.listAbilities(); });				
+				$('#advanced').click(function(){ $('.advanced-menu').toggle()});
+				
+				// Debug functions
+				$('#storageinfo').click(function(){ cameraPi.debug.getStorageInfo();});
+				$('#syncCamera').click(function(){ cameraPi.debug.syncCamera();});	
+				$('#localstorage').click(function(){ cameraPi.debug.listStorage();});
+				$('#resetcameraconnection').click(function () { cameraPi.debug.resetCameraConnection(); });
+				
+				
 				$('input:submit, a, button').button();
+				
 		    });
 		</script>
 	</head>
@@ -28,20 +32,21 @@
 		<div id="wrapper">
 			<header>CameraPi header and Logo</header>
 			<nav>
-				<ul style="list-style: none;">
-					<li><button id="listconfig">List Configs</button></li>
-					<li><button id="listsummary">List Summary</button></li>
-					<li><button id="captureimage">Capture Photo</button></li>				
-					<li><button id="listabilities">List Abilities</button></li>
-					<li><button id="storageinfo">Storage Info</button></li>				
-					<li><button id="resetcameraconnection">Reset Camera Connection</button></li>
-					<li><button id="syncCamera">Sync Camera</button></li>
-					<li><button id="foo">View Local Storage</button></li>
+				<ul>
+					<li><button id="shots">Shots</button></li>
+					<li><button id="listconfig">All Configs</button></li>
+					<li><button id="listsummary">Summary</button></li>									
+					<li><button id="listabilities">Abilities</button></li>					
+					<li><button id="advanced">Advanced</button></li>
+					<li class="advanced-menu"><button id="storageinfo">Storage</button></li>
+					<li class="advanced-menu"><button id="resetcameraconnection">Reset Camera Connection</button></li>
+					<li class="advanced-menu"><button id="syncCamera">Sync Camera</button></li>
+					<li class="advanced-menu"><button id="localstorage">View Local Storage</button></li>					
 				</ul>
 			</nav>			
 			<section id="content"></section>			
-			<div id="configSetting" style="display:none;">				
-			</div>
+			<section id="shots"></section>
+			<footer>&copy;2012 rezamahmood.net</footer>
 		</div>
 	</body>
 </html>	
