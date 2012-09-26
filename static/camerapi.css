@@ -13,33 +13,33 @@ body, html {
 	background:#99c;
 }
 
-header{
+#header{
 	background:#ddd;
 }
 
-nav{
+#nav{
 	background:#c99;
 	float:left;
 	width:250px;
 }
 
-section{
+#content{
 	background:#9c9;
 	float: right;
 	width: 500px;	
 }
 
-footer{
+#footer{
 	background:#cc9;
 	clear:both;
 }
 
-nav ul{
+#nav ul{
 	list-style:none;
 	padding:2px;
 }
 
-nav ul li{
+#nav ul li{
 	padding:2px;
 	margin:2px;
 }

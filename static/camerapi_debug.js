@@ -1,9 +1,16 @@
 cameraPi.debug = {
 	listStorage: function(){
 		$('#content').empty();
-		for(var i=0;i<localStorage.length;i++)
+		if(localStorage.length > 0)
 		{
-			$('#content').append('<div>' + localStorage.getItem(localStorage.key(i)) + '</div>');
+			for(var i=0;i<localStorage.length;i++)
+			{
+				$('#content').append('<div>' + localStorage.getItem(localStorage.key(i)) + '</div>');
+			}
+		}
+		else
+		{
+			alert('No data stored locally');
 		}
 	},
 	
@@ -12,12 +19,12 @@ cameraPi.debug = {
 		if(!cameraPi.allconfigs)
 		{
 			cameraPi.getAllConfigs(function(data){
-				cameraPi.processSyncCamera(data);
+				cameraPi.debug.processSyncCamera(data);
 			});
 		}
 		else
 		{
-			cameraPi.processSyncCamera(cameraPi.allconfigs);
+			cameraPi.debug.processSyncCamera(cameraPi.allconfigs);
 		}
 	},
 	

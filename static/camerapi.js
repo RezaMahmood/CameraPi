@@ -6,8 +6,9 @@ cameraPi = {
 	camerasummary: undefined,
 	cameraabilities: undefined,
 	storageinfo: undefined,
-	configKeyPrefix: function(){ return 'C|';},
-	shotKeyPrefix: function(){ return 'S|';},
+	configKeyPrefix: 'C|',
+	shotKeyPrefix: 'S|',
+	allshots: [],
 	processing: function(){return false;},
 	getAllConfigs: function(callback){
 		$.get('/listconfig', function (data) {		
@@ -179,6 +180,107 @@ cameraPi = {
 					}).attr('src', '/static/' + data);
 				}
 		});
+	},
+	
+	getAllShotsFromLocalStorage: function(){
+		for(var i=0;i<localStorage.length;i++)
+			{
+				var shotId = localStorage.key(i);
+				
+				if(shotId.substr(0, cameraPi.shotKeyPrefix.length) == cameraPi.shotKeyPrefix)
+				{
+					var shot = {'Id': shotId, 'Shot': JSON.parse(localStorage.getItem(shotId))}
+					cameraPi.allshots.push(shot);
+				}
+			}
+	},
+	
+	listShots: function(){		
+	
+		/* Test data structure:
+			var data = JSON.stringify({	"Name":"4th Shot", 
+										"Configs":[		{"Key":"1st Key", 
+														"Value": "1st Value", 
+														"Label": "Label1"}, 
+														{"Key":"2nd Key", 
+														"Value": "2nd Value", 
+														"Label":"Label 2"}]})
+			localStorage.setItem('S|4', data)
+		*/
+
+		if(localStorage.length > 0)
+		{
+			// filter out all shots
+			if(cameraPi.allshots.length == 0)
+			{
+				cameraPi.getAllShotsFromLocalStorage();
+			}
+			
+			if(cameraPi.allshots.length > 0)
+			{
+				$('#content').empty().append('<ul></ul>');
+				for(var i=0; i<cameraPi.allshots.length;i++)
+				{
+					var shotItem = cameraPi.allshots[i];
+					
+					$('#content ul').append('<li id="' + shotItem.Id + '"><a href="#' + shotItem.Id + '">' + shotItem.Shot.Name + '</li>');
+				}
+				
+				$('li[id^="' + cameraPi.shotKeyPrefix + '"]').click(function(){
+					cameraPi.editShot($(this).attr('id'));
+				});
+			}
+			else
+			{
+				alert('You have no shots stored locally');
+			}
+		}
+		else
+		{
+			alert('You have no shots stored locally');
+		}
+		
+	},
+	
+	editShot: function(shotId){
+		
+		var shotItem = cameraPi.getShotById(shotId); 
+		console.log(shotItem);
+		
+		if(shotItem != '')
+		{
+			$('#shotName').val(shotItem.Shot.Name);
+			$('#shotId').val(shotId);
+			var allConfigs = shotItem.Shot.Configs;
+			for(var i=0;i<allConfigs.length;i++)
+			{
+				var configItem = allConfigs[i];
+				$('#shotConfigs').append('<li>Config Key: ' + configItem.Key + ' | Value: ' + configItem.Value + ' | Label: ' + configItem.Label + '</li>');
+			}
+			
+			$('#content').empty().hide();			
+			$('#shots').show();
+		
+		}
+		else
+		{
+			alert('Could not find shot with id: ' + shotId);
+		}
+	},
+	
+	getShotById: function(shotId){
+		if(cameraPi.allshots.length > 0)
+		{
+			for(var i=0;i<cameraPi.allshots.length;i++)
+			{
+				var shot = cameraPi.allshots[i];
+				if(shot.Id == shotId){
+					return shot;
+				}
+			}
+		}
+		
+		return '';
 	}
 	
 

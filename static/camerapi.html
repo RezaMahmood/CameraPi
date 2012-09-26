@@ -3,24 +3,25 @@
 	<head>
 		<link type="text/css" href="jquery-ui-1.8.23.custom.css" rel="Stylesheet" />
 		<link type="text/css" href="camerapi.css" rel="Stylesheet" />
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.0.6-development-only.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>		
         <script type="text/javascript" src="camerapi.js"></script>
 		<script type="text/javascript" src="camerapi_debug.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		    $(function () {
 		        $('#content').empty();
-		        $('#listconfig').click(function () { cameraPi.listConfigs(); });
-		        $('#listsummary').click(function () { cameraPi.listSummary(); });		       		        
-		        $('#listabilities').click(function () { cameraPi.listAbilities(); });				
-				$('#advanced').click(function(){ $('.advanced-menu').toggle()});
+		        $('#listconfig-button').click(function () { cameraPi.listConfigs(); });
+		        $('#listsummary-button').click(function () { cameraPi.listSummary(); });		       		        
+		        $('#listabilities-button').click(function () { cameraPi.listAbilities(); });				
+				$('#advanced-button').click(function(){ $('.advanced-menu').toggle()});
+				$('#shot-button').click(function(){ cameraPi.listShots();});
 				
 				// Debug functions
-				$('#storageinfo').click(function(){ cameraPi.debug.getStorageInfo();});
-				$('#syncCamera').click(function(){ cameraPi.debug.syncCamera();});	
-				$('#localstorage').click(function(){ cameraPi.debug.listStorage();});
-				$('#resetcameraconnection').click(function () { cameraPi.debug.resetCameraConnection(); });
+				$('#storageinfo-button').click(function(){ cameraPi.debug.getStorageInfo();});
+				$('#syncCamera-button').click(function(){ cameraPi.debug.syncCamera();});	
+				$('#localstorage-button').click(function(){ cameraPi.debug.listStorage();});
+				$('#resetcameraconnection-button').click(function () { cameraPi.debug.resetCameraConnection(); });
 				
 				
 				$('input:submit, a, button').button();
@@ -30,23 +31,31 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<header>CameraPi header and Logo</header>
-			<nav>
+			<div id="header">CameraPi header and Logo</div>
+			<div id="nav">
 				<ul>
-					<li><button id="shots">Shots</button></li>
-					<li><button id="listconfig">All Configs</button></li>
-					<li><button id="listsummary">Summary</button></li>									
-					<li><button id="listabilities">Abilities</button></li>					
-					<li><button id="advanced">Advanced</button></li>
-					<li class="advanced-menu"><button id="storageinfo">Storage</button></li>
-					<li class="advanced-menu"><button id="resetcameraconnection">Reset Camera Connection</button></li>
-					<li class="advanced-menu"><button id="syncCamera">Sync Camera</button></li>
-					<li class="advanced-menu"><button id="localstorage">View Local Storage</button></li>					
+					<li><button id="shot-button">Shots</button></li>
+					<li><button id="listconfig-button">All Configs</button></li>
+					<li><button id="listsummary-button">Summary</button></li>									
+					<li><button id="listabilities-button">Abilities</button></li>					
+					<li><button id="advanced-button">Advanced</button></li>
+					<li class="advanced-menu"><button id="storageinfo-button">Storage</button></li>
+					<li class="advanced-menu"><button id="resetcameraconnection-button">Reset Camera Connection</button></li>
+					<li class="advanced-menu"><button id="syncCamera-button">Sync Camera</button></li>
+					<li class="advanced-menu"><button id="localstorage-button">View Local Storage</button></li>					
 				</ul>
-			</nav>			
-			<section id="content"></section>			
-			<section id="shots"></section>
-			<footer>&copy;2012 rezamahmood.net</footer>
+			</div>			
+			<div id="content"></div>			
+			<div id="shots" style="display:none;">
+				<form>
+				<div>Name: <input type="text" id="shotName" /></div>
+				<div>Configs:
+					<ul id="shotConfigs"></ul>
+				</div>
+				<input type="hidden" id="shotId" />
+				</form>
+			</div>
+			<div id="footer">&copy;2012 rezamahmood.net</div>
 		</div>
 	</body>
 </html>	
