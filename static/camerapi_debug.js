@@ -32,6 +32,7 @@ cameraPi.debug = {
 		var allrawconfigs = data.replace(/[\n\r]/g, ',');
 		var allconfigs = allrawconfigs.split(',');				
 		
+		localStorage.clear();
 		
 		// iterate through each config setting
 		for(var i=0;i<allconfigs.length;i++)

@@ -1,0 +1,27 @@
+Data Structures:
+
+Shot:
+
+{	"Id": "S|123",
+	"Shot": {	"Name": "ShotName",
+				"Configs": [	{	"Key": "ConfigKey",
+									"Value": "ConfigValue",
+									"Label": "ConfigLabel"
+								},
+								{	"Key": "ConfigKey",
+									"Value": "ConfigValue",
+									"Label": "ConfigLabel"
+								}
+							]
+			}
+			
+LocalStorageShot
+Key: Shot Id
+Value: JSON.stringify(Shot)
+
+LocalStorageConfig
+Key: ConfigKey - e.g. mainStatusBatteryLevel
+Value: Output from gphoto2 when you call --get-Config 'configKey' - contains all config options and current value
+
+cameraPi.allshots - array of Shot objects
+cameraPi.allconfigs - array of config objects

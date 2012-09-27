@@ -281,6 +281,35 @@ cameraPi = {
 		}
 		
 		return '';
+	},
+	
+	addConfigToShot: function(shotId, config, shotName){
+		// check whether shot already exists
+		var shot = cameraPi.getShotById(shotId);
+		if(shot){
+			// add the new config to the array of configs
+			shot.Configs.push(config);			
+		}
+		else{
+			// create the shot
+			shot = {
+					"Name" : shotName,
+					"Configs": [config]
+			};
+		}
+		// add the shot to the local shot array
+		var shotItemKey = (cameraPi.shotKeyPrefix +shotId);
+		var shotItem = { shotItemKey : JSON.stringify(shot)};
+		cameraPi.allshots.push(shotItem);
+		// persist to local storage
+		localStorage.setItem((cameraPi.shotKeyPrefix + shotId), JSON.stringify(shot));
+	},
+	
+	// Gets a unique shot id
+	getNewShotId: function(){
+		var date = new Date();
+		var id = Date.UTC(date.getFullYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
+		return id;
 	}
 	
 
